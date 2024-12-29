@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { NoteController } from "./notes.controllers";
 import { NoteMiddlewares } from "./notes.middlewares";
+import express from "express";
 
 const noteRouter: Router = Router()
   .use(NoteMiddlewares.auth)
+  .use(express.json())
   .get("/:id", NoteMiddlewares.validateRequest, NoteController.getNoteById)
   .post("/", NoteMiddlewares.validateRequest, NoteController.createNote)
   .delete("/:id", NoteMiddlewares.validateRequest, NoteController.deleteNoteById)

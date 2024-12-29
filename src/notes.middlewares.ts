@@ -20,7 +20,7 @@ export class NoteMiddlewares {
         ) as JwtPayload;
 
         if (NoteMiddlewares.users.some((u) => u.email === userPayload.sub)) return next();
-        throw new Error("Unauthorized");
+        else throw new Error("Unrecognized user");
       } else {
         throw new Error("Unauthorized");
       }

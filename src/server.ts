@@ -7,11 +7,11 @@ import assert from "node:assert";
 assert(process.env.JWT_SECRET, `jwt secret is not set in .env file`);
 
 const app = express();
-app.use(express.json());
 app.use("/notes", noteRouter);
 
-const server = app.listen(+(process.env.PORT || 0), "localhost", 5);
+const server = app.listen(+(process.env.PORT || 0), "127.0.0.1", 5);
 
 server.on("listening", () => {
-  console.log(`Server is listening on port: ${(server.address() as AddressInfo).port}`);
+  const { address, port } = server.address() as AddressInfo;
+  console.info(`Server HTTP is listening on address: ${address}:${port}`);
 });
